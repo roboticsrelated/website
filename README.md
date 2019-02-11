@@ -28,10 +28,7 @@
     To query with graphql: http://localhost:8000/___graphql
 
 
-## 🧐 What's inside?
-
-A quick look at the top-level files and directories you'll see in a Gatsby project.
-
+## Folder Structure
     .
     ├── node_modules
     ├── src
@@ -41,7 +38,6 @@ A quick look at the top-level files and directories you'll see in a Gatsby proje
     ├── gatsby-config.js
     ├── gatsby-node.js
     ├── gatsby-ssr.js
-    ├── LICENSE
     ├── package-lock.json
     ├── package.json
     ├── README.md
