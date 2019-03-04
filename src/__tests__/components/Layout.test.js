@@ -4,6 +4,8 @@ import Layout from "../../components/Layout"
 
 describe('Layout', () => {
   let props = {
+    children : {},
+    classes : {},
     topAppBarAttributes : {},
     leftDrawerAttributes : {},
   }
