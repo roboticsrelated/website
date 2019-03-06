@@ -3,37 +3,27 @@ import { graphql, Link } from 'gatsby'
 import Layout from '../components/Layout'
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import styles from './styles/post.jss'
 
-const styles = theme => ({
-  root: {
-    display: 'flex',
-  },
-  title: {
-
-  },
-  publishInfo: {
-
-  },
-  body: {
-
-  },
-  background: {
-
-  },
-
-});
 
 function Template({data}) {
   const post = data.markdownRemark
+  const leftDrawerAttributes = {
+    header : ['Intelligence', 'Perception', 'Form', 'Energy'],
+    body : [],
+    footer : ['Copyright Robotics Related 2019'],
+  }
 
   return (
     <div>
-      <Layout>
+      <Layout
+        leftDrawerAttributes={leftDrawerAttributes}
+      >
         <Link to="/">Go Back</Link>
-        <Typography variant="h1" color="inherit">
+        <Typography variant="h1">
           {post.frontmatter.title}
         </Typography>
-        <Typography variant="h6" color="inherit">
+        <Typography variant="h6">
           Posted by {post.frontmatter.author} on {post.frontmatter.date}
         </Typography>
         <div dangerouslySetInnerHTML={{__html: post.html}} />
