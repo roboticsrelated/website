@@ -1,42 +1,70 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-
-const drawerWidth = 240;
-
-const styles = theme => ({
-  root: {
-    display: 'flex',
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  toolbar: theme.mixins.toolbar,
-});
+import React from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import Drawer from '@material-ui/core/Drawer'
+import Toolbar from '@material-ui/core/Toolbar'
+import List from '@material-ui/core/List'
+import Typography from '@material-ui/core/Typography'
+import Divider from '@material-ui/core/Divider'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
+import styles from './styles/LeftDrawer.jss'
 
 class LeftDrawer extends React.Component {
 
+  createHeader = (headerData) => {
+    const headerTitle = 'Topics'
+    return (
+    <>
+    <List>
+      <ListItem button key={headerTitle}>
+        <ListItemText primary={headerTitle} />
+      </ListItem>
+      {headerData.map((text, index) => (
+        <ListItem button key={text}>
+          <ListItemText secondary={text} />
+        </ListItem>
+      ))}
+    </List>
+    <Divider/>
+    </>
+    )
+  }
+
+  createBody = (bodyData) => {
+    return (
+      <>
+        <List>
+          {bodyData.map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider/>
+      </>
+    )
+  }
+
+  createFooter = (footerData) => {
+    return (
+      <>
+      <List>
+        {footerData.map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+      </List>
+      </>
+    )
+  }
+
   render () {
-    const { classes, open, items } = this.props;
+    const { classes, open, header, body, footer } = this.props;
     return (
       <div className={classes.root}>
-        <CssBaseline />
         <Drawer
           className={classes.drawer}
           variant='persistent'
@@ -46,23 +74,12 @@ class LeftDrawer extends React.Component {
           }}
         >
           <div className={classes.toolbar} />
-          <List>
-            {items.map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon></ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-          <Divider />
-          <List gutterBottom>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon></ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
+          { (header.length > 0) ?
+            this.createHeader(header) : null}
+          { (body.length > 0) ?
+            this.createBody(body) : null}
+          { (footer.length > 0) ?
+            this.createFooter(footer) : null}
         </Drawer>
       </div>
     )
@@ -71,8 +88,11 @@ class LeftDrawer extends React.Component {
 
 
 LeftDrawer.propTypes = {
-  classes: PropTypes.object.isRequired,
-  items: PropTypes.array,
+  classes : PropTypes.object.isRequired,
+  open : PropTypes.bool,
+  header : PropTypes.array,
+  body : PropTypes.array,
+  footer : PropTypes.array,
 };
 
 export default withStyles(styles)(LeftDrawer);
