@@ -1,20 +1,23 @@
 import React from 'react'
 import { graphql, Link } from 'gatsby'
 import withRoot from '../withRoot';
-import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
 import ArticleCard from '../components/ArticleCard'
 import Layout from '../components/Layout'
-import Grid from '@material-ui/core/Grid';
+import Grid from '@material-ui/core/Grid'
+import styles from './styles/index.jss'
 
-const styles = theme => ({
-  root: {
-    display: 'flex',
-  },
-});
+const leftDrawerAttributes = {
+  header : ['Intelligence', 'Perception', 'Form', 'Energy'],
+  body : [],
+  footer : ['Copyright Robotics Related 2019'],
+}
 
 const IndexPage = ({data}) => (
-  <Layout>
+  <Layout
+    leftDrawerAttributes={leftDrawerAttributes}
+  >
     <Typography variant="h1" gutterBottom>
       Robotics Related
     </Typography>
@@ -25,7 +28,12 @@ const IndexPage = ({data}) => (
       {data.allMarkdownRemark.edges.map(post => (
         <Grid item>
           <div key={post.node.id}>
-            <ArticleCard data={post.node.frontmatter}/>
+            <ArticleCard
+              title={post.node.frontmatter.title}
+              author={post.node.frontmatter.author}
+              date={post.node.frontmatter.date}
+              path={post.node.frontmatter.path}
+            />
           </div>
         </Grid>
       ))}
