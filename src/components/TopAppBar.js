@@ -6,29 +6,25 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from '@material-ui/core/IconButton';
+import styles from './styles/TopAppBar.jss'
 
-const styles = theme => ({
-  root: {
-    display: 'flex',
-  },
-  TopAppBar: {
-    zIndex: theme.zIndex.drawer + 1,
-  },
-});
 
 function TopAppBar(props) {
   const { classes, title, toggle } = props;
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default" className={classes.TopAppBar}>
+      <AppBar
+        position="static"
+        color="default"
+        className={classes.TopAppBar}>
         <Toolbar>
         <IconButton
-              color="inherit"
-              aria-label="Open drawer"
-              onClick={toggle}
+          color="inherit"
+          aria-label="Open drawer"
+          onClick={toggle}
         >
-          <MenuIcon/>
+        <MenuIcon/>
         </IconButton>
           <Typography variant="h6" color="inherit">
             {title}
