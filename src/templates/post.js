@@ -1,33 +1,39 @@
 import React from 'react'
+import RehypeReact from 'rehype-react'
 import { graphql, Link } from 'gatsby'
 import Layout from '../components/Layout'
+import Article from '../components/Article'
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import styles from './styles/post.jss'
 
 
+const renderAst = new RehypeReact({
+  createElement: React.createElement,
+  components: {
+    h1: (props) => <Typography variant='h1' {...props} />,
+    h2: (props) => <Typography variant='h2' {...props} />,
+    h3: (props) => <Typography variant='h3' {...props} />,
+    h4: (props) => <Typography variant='h4' {...props} />,
+    h5: (props) => <Typography variant='h5' {...props} />,
+    h6: (props) => <Typography variant='h6' {...props} />,
+    p : (props) => <Typography variant='body1' paragraph {...props} />,
+  }
+}).Compiler
+
 function Template({data}) {
   const post = data.markdownRemark
-  const leftDrawerAttributes = {
-    header : ['Intelligence', 'Perception', 'Form', 'Energy'],
-    body : [],
-    footer : ['Copyright Robotics Related 2019'],
-  }
 
+  console.log(data)
   return (
     <div>
-      <Layout
-        leftDrawerAttributes={leftDrawerAttributes}
+      <Article
+        title={post.frontmatter.title}
+        author={post.frontmatter.author}
+        date={post.frontmatter.date}
       >
-        <Link to="/">Go Back</Link>
-        <Typography variant="h1">
-          {post.frontmatter.title}
-        </Typography>
-        <Typography variant="h6">
-          Posted by {post.frontmatter.author} on {post.frontmatter.date}
-        </Typography>
-        <div dangerouslySetInnerHTML={{__html: post.html}} />
-      </Layout>
+        {renderAst(post.htmlAst)}
+      </Article>
     </div>
   )
 }
@@ -35,7 +41,7 @@ function Template({data}) {
 export const postQuery = graphql`
   query ($path: String!) {
     markdownRemark(frontmatter: {path: {eq: $path}}) {
-      html
+      htmlAst
       frontmatter {
         path
         title
