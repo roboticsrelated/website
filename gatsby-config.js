@@ -25,6 +25,27 @@ module.exports = {
         name: 'pages'
       }
     },
-    'gatsby-transformer-remark'
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: `${__dirname}/src/images`,
+      },
+    },
+    `gatsby-plugin-sharp`,
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [
+          'gatsby-remark-copy-linked-files',
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+            maxWidth: 650,
+            },
+          },
+        ],
+      },
+    },
   ],
 }

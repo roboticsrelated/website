@@ -41,7 +41,7 @@ function TopAppBar(props) {
 TopAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
   title: PropTypes.string,
-  toggle: PropTypes.function,
+  toggle: PropTypes.object,
 };
 
 export default withStyles(styles)(TopAppBar);
